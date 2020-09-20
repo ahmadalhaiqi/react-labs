@@ -1,5 +1,5 @@
 {
-  "name": "hooks-news",
+  "name": "react-labs",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -9,6 +9,7 @@
     "firebase-admin": "^7.3.0",
     "firebase-functions": "^2.3.1",
     "react": "^16.8.6",
+    "react-autosize-textarea": "^7.1.0",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.0",
     "react-scripts": "2.1.8"
