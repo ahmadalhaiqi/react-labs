@@ -7,14 +7,23 @@ function LabList(props) {
   const [labs, setLabs] = React.useState([]);
 
   React.useEffect(() => {
-    getLabs();
+    const unsubscribe = getLabs();
+    return () => unsubscribe;
   }, []);
 
   function getLabs() {
-    firebase.db
-      .collection("labs")
-      .where("user.id", "==", user.uid)
-      .onSnapshot(handleSnapshot);
+    if (user)
+      if (user.email === "admin@gmail.com")
+        firebase.db
+          .collection("labs")
+          .orderBy("created")
+          .onSnapshot(handleSnapshot);
+      else
+        firebase.db
+          .collection("labs")
+          .where("user.id", "==", user.uid)
+          .orderBy("created")
+          .onSnapshot(handleSnapshot);
   }
 
   function handleSnapshot(snapshot) {
@@ -27,7 +36,7 @@ function LabList(props) {
   return (
     <div>
       {labs.map((lab, index) => (
-        <LabItem lab={lab.id} labName={lab.name} index={index + 1} />
+        <LabItem key={lab.id} lab={lab} index={index + 1} />
       ))}
     </div>
   );

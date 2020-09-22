@@ -1,4 +1,4 @@
-export default function validateCreateLink(values) {
+export default function validateCreateLab(values) {
   let errors = {};
 
   // // Description Errors

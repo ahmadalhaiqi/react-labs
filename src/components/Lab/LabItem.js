@@ -51,7 +51,7 @@ function LabItem({ lab, index, history }) {
           {lab.totalMarks} by {lab.user.name}{" "}
           {distanceInWordsToNow(lab.created)}
           {" | "}
-          <Link to={`/lab/${lab.id}`}>Edit</Link>
+          <Link to={`/lab/${lab.id}`}>View</Link>
           {userAuthUser && (
             <>
               {" | "}

@@ -2,7 +2,7 @@ import React from "react";
 import { withRouter, NavLink } from "react-router-dom";
 import { FirebaseContext } from "../firebase";
 
-function Header() {
+function Header(props) {
   const { user, firebase } = React.useContext(FirebaseContext);
 
   return (
@@ -49,7 +49,13 @@ function Header() {
           <>
             <div className="header-name">{user.displayName}</div>
             <div className="divider">|</div>
-            <div className="header-button" onClick={() => firebase.logout()}>
+            <div
+              className="header-button"
+              onClick={() => {
+                firebase.logout();
+                props.history.push("/login");
+              }}
+            >
               logout
             </div>
           </>

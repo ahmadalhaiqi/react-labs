@@ -1,6 +1,6 @@
 import React from "react";
 import useFormValidation from "../Auth/useFormValidation";
-import validateCreateLink from "../Auth/validateCreateLink";
+import validateCreateLink from "../Auth/validateCreateLab";
 import FirebaseContext from "../../firebase/context";
 
 const INITIAL_STATE = {

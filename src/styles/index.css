@@ -1,11 +1,15 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: Verdana, Geneva, sans-serif;
+  /* font-family: Verdana, Geneva, sans-serif; */
 }
 
 input {
   max-width: 500px;
+  margin: 0 3px;
+  margin-bottom: 0.2em;
+  padding: 0.1em;
+  font-size: 0.9em;
 }
 
 .gray {
@@ -42,11 +46,6 @@ input {
   max-width: 250px;
 }
 
-input {
-  padding: 0.1em;
-  margin-bottom: 0.2em;
-}
-
 .error-input {
   border: 2px solid red;
   border-radius: 4px;
@@ -60,7 +59,7 @@ input {
 }
 
 .header {
-  background-color: #ff6600;
+  background-color: #6cbed3;
   white-space: nowrap;
   padding: 0.25rem;
   color: black;
@@ -104,8 +103,8 @@ input {
 }
 
 textarea {
-  margin-top: 0.5em;
-  width: 90%;
+  padding: 5px;
+  font-size: 0.9em;
 }
 
 .delete-button {
@@ -125,22 +124,6 @@ textarea {
   padding-right: 1rem;
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
-}
-
-.pagination {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  margin-left: 2rem;
-  color: #000;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.vote-button {
-  font-size: 11px;
-  color: #828282;
-  margin-left: 0.25rem;
 }
 
 .forgot-password {
@@ -169,4 +152,15 @@ textarea {
   width: 100%;
   margin-bottom: 0.2em;
   max-width: 500px;
+}
+
+.section-header {
+  font-weight: bold;
+  text-decoration-line: underline;
+}
+
+.section-description {
+  font-style: italic;
+  font-size: 0.7em;
+  display: block;
 }
