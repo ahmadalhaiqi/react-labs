@@ -1,15 +1,15 @@
 import React from "react";
-import useFormValidation from "../Auth/useFormValidation";
-import validateCreateLab from "../Auth/validateCreateLab";
-import FirebaseContext from "../../firebase/context";
+import useFormValidation from "../../Auth/useFormValidation";
+import validateCreateLab from "../../Auth/validateCreateLab";
+import FirebaseContext from "../../../firebase/context";
 import TextareaAutosize from "react-autosize-textarea";
 
 const INITIAL_STATE = {
-  name: "Experiment 1",
+  name: "Experiment 2",
   semester: "S1Y2021",
   section: "",
   instructor: "Ahmed Mubarak",
-  title: "Data Manipulation",
+  title: "Elementary Input Output Programming",
   introduction: "",
   step1: "",
   step2: "",
@@ -19,13 +19,13 @@ const INITIAL_STATE = {
   step6: "",
   step7: "",
   step8: "",
+  step9: "",
   discussion: "",
   conclusion: "",
 };
 
-function Lab1(props) {
+function AddLab2(props) {
   const { firebase, user } = React.useContext(FirebaseContext);
-
   const { handleSubmit, handleChange, values, errors } = useFormValidation(
     INITIAL_STATE,
     validateCreateLab,
@@ -51,10 +51,11 @@ function Lab1(props) {
         step6,
         step7,
         step8,
+        step9,
         discussion,
         conclusion,
       } = values;
-      const newLab1 = {
+      const newLab2 = {
         name,
         semester,
         section,
@@ -69,6 +70,7 @@ function Lab1(props) {
         step6,
         step7,
         step8,
+        step9,
         discussion,
         conclusion,
         familiarity: "",
@@ -87,7 +89,7 @@ function Lab1(props) {
         po4bF: null,
         created: Date.now(),
       };
-      firebase.db.collection("labs").add(newLab1);
+      firebase.db.collection("labs").add(newLab2);
       props.history.push("/");
     }
   }
@@ -167,7 +169,7 @@ function Lab1(props) {
           placeholder="Introduction and Objectives..."
         />
 
-        <div className="section-header mt4">A. Addition Operation</div>
+        <div className="section-header mt4">Task 1</div>
         <p>
           1. Copy and Paste the LST file (only the asm code portion with the
           date and time) to Word Doc and print.
@@ -179,11 +181,10 @@ function Lab1(props) {
           placeholder="Code..."
         />
         <p>
-          2. Perform the addition operation using another set of 8-bit integers.
-          Use debugging mode to perform program tracing and use WATCH function
-          to write your observations regarding the addition operation, related
-          registers and PORT register. Explain the procedures taken to achieve
-          your task.
+          2. Explain the procedures taken to achieve your task and show
+          calculation steps the delay subroutine. Demonstrate the working
+          program on the PIC Training Kit hardware module and write down your
+          observation(s).
         </p>
         <div className="section-description mb2">
           * Students should be able to list down the summary of steps taken to
@@ -198,7 +199,7 @@ function Lab1(props) {
           placeholder="Procedure, Results and Analysis..."
         />
 
-        <div className="section-header mt4">B. Subtraction Operation</div>
+        <div className="section-header mt4">Task 2</div>
         <p>
           3. Copy and Paste the LST file (only the asm code portion with the
           date and time) to Word Doc and print.
@@ -210,11 +211,9 @@ function Lab1(props) {
           placeholder="Code..."
         />
         <p>
-          4. Perform the subtraction operation using another set of 8-bit
-          integers. Use debugging mode to perform program tracing and use WATCH
-          function to write your observations regarding the subtraction
-          operation, related registers and PORT register. Explain the procedures
-          taken to achieve your task.
+          4. Explain the procedures taken to achieve your task. Demonstrate the
+          working program on the PIC Training Kit hardware module and write down
+          your observation(s).
         </p>
         <div className="section-description mb2">
           * Students should be able to list down the summary of steps taken to
@@ -229,60 +228,24 @@ function Lab1(props) {
           placeholder="Procedure, Results and Analysis..."
         />
 
-        <div className="section-header mt4">C. Logic Operation</div>
+        <p>5. Draw the flowchart of the program.</p>
+        <button>Upload</button>
+
+        <div className="section-header mt4">Task 3</div>
         <p>
-          5. Copy and Paste the LST file (only the asm code portion with the
+          6. Copy and Paste the LST file (only the asm code portion with the
           date and time) to Word Doc and print.
         </p>
-        <TextareaAutosize
-          onChange={handleChange}
-          value={values.step5}
-          name="step5"
-          placeholder="Code..."
-        />
-        <p>
-          6. Use debugging mode to perform program tracing and use WATCH
-          function to write your observations regarding the logic operation,
-          related registers and PORTD. Explain the procedures taken to achieve
-          your task. <b>What is the purpose of the masking bits?</b>
-        </p>
-        <div className="section-description mb2">
-          * Students should be able to list down the summary of steps taken to
-          complete the task (PO4a-B) and present the results in an organized
-          manner, i.e., labeled/contains title or caption (PO4a-C). Students
-          should also be able to perform good analysis of data (PO4b-D).
-        </div>
         <TextareaAutosize
           onChange={handleChange}
           value={values.step6}
           name="step6"
-          placeholder="Procedure, Results and Analysis..."
-        />
-
-        <div className="section-header mt4">D. Rotation Operation</div>
-        <p>
-          7. Copy and Paste the LST file (only the asm code portion with the
-          date and time) to Word Doc and print.
-        </p>
-        <TextareaAutosize
-          onChange={handleChange}
-          value={values.step7}
-          name="step7"
           placeholder="Code..."
         />
         <p>
-          8. Use debugging mode to perform program tracing and use WATCH
-          function to write your observations regarding the logic operation,
-          related registers and PORTD.
-          <br />
-          <br />
-          <b>
-            <i>Additional task: </i>
-          </b>
-          Create a running LED at PORTD which will rotate from right to left
-          with 0.5sec interval between each rotation. Show the calculations for
-          the 0.5sec delay subroutine. Explain the procedures taken to achieve
-          your task. Copy and Paste ASM file to Word Doc and print
+          7. Explain the procedures taken to achieve your task. Demonstrate the
+          working program on the PIC Training Kit hardware module and write down
+          your observation(s).
         </p>
         <div className="section-description mb2">
           * Students should be able to list down the summary of steps taken to
@@ -292,8 +255,37 @@ function Lab1(props) {
         </div>
         <TextareaAutosize
           onChange={handleChange}
+          value={values.step7}
+          name="step7"
+          placeholder="Procedure, Results and Analysis..."
+        />
+
+        <div className="section-header mt4">Task 4</div>
+        <p>
+          8. Copy and Paste the LST file (only the asm code portion with the
+          date and time) to Word Doc and print.
+        </p>
+        <TextareaAutosize
+          onChange={handleChange}
           value={values.step8}
           name="step8"
+          placeholder="Code..."
+        />
+        <p>
+          9. Explain the procedures taken to achieve your task. Demonstrate the
+          working program on the PIC Training Kit hardware module and write down
+          your observation(s).
+        </p>
+        <div className="section-description mb2">
+          * Students should be able to list down the summary of steps taken to
+          complete the task (PO4a-B) and present the results in an organized
+          manner, i.e., labeled/contains title or caption (PO4a-C). Students
+          should also be able to perform good analysis of data (PO4b-D).
+        </div>
+        <TextareaAutosize
+          onChange={handleChange}
+          value={values.step9}
+          name="step9"
           placeholder="Procedure, Results and Analysis..."
         />
 
@@ -485,6 +477,7 @@ function Lab1(props) {
             disabled={!(user && user.email === "admin@gmail.com")}
           />
         </div>
+
         <button className="button pointer ma3 w-100 center" type="submit">
           Submit
         </button>
@@ -493,4 +486,4 @@ function Lab1(props) {
   );
 }
 
-export default Lab1;
+export default AddLab2;
