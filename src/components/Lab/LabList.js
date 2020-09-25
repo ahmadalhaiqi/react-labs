@@ -10,11 +10,13 @@ function LabList(props) {
 
   React.useEffect(() => {
     const unsubscribe = getLabs();
-    return () => unsubscribe;
+    return () => unsubscribe();
   }, [user]);
 
   function getLabs() {
-    if (user)
+    if (!user) {
+      props.history.push("/login");
+    } else {
       if (user.email === "admin@gmail.com")
         firebase.db
           .collection("labs")
@@ -26,6 +28,7 @@ function LabList(props) {
           .where("user.id", "==", user.uid)
           .orderBy("created")
           .onSnapshot(handleSnapshot);
+    }
   }
 
   function handleSnapshot(snapshot) {
@@ -36,7 +39,7 @@ function LabList(props) {
     setLoading(false);
   }
 
-  return loading ? (
+  return !loading ? (
     user && user.email === "admin@gmail.com" ? (
       <div>
         {labs.map((lab, index) => (

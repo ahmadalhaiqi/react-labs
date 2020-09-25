@@ -1,13 +1,17 @@
 export default function validateCreateLab(values) {
   let errors = {};
 
-  // // Description Errors
-  // if (!values.description) {
-  //   errors.description = "Description required";
-  // } else if (values.description.length < 10) {
-  //   errors.description = "Description must be at least 10 characters";
-  // }
-  // // Url Errors
+  // File Errors
+  if (!values.file) {
+    errors.file = "Please select a file to upload the code";
+  } else if (
+    values.file.name.substr(values.file.name.lastIndexOf(".")) !== ".pdf"
+  ) {
+    errors.file = "Code file must be a PDF file";
+  } else if (!values.code) {
+    errors.code = "Please wait until the coce is uploaded...";
+  }
+  // Url Errors
   // if (!values.url) {
   //   errors.url = "URL required";
   // } else if (!/^(ftp|http|https):\/\/[^ "]+$/.test(values.url)) {

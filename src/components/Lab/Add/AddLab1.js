@@ -11,27 +11,29 @@ const INITIAL_STATE = {
   instructor: "Ahmed Mubarak",
   title: "Data Manipulation",
   introduction: "",
-  step1: "",
   step2: "",
-  step3: "",
   step4: "",
-  step5: "",
   step6: "",
-  step7: "",
   step8: "",
   discussion: "",
   conclusion: "",
+  file: null,
+  code: "",
 };
 
 function AddLab1(props) {
   const { firebase, user } = React.useContext(FirebaseContext);
-  const { handleSubmit, handleChange, values, errors } = useFormValidation(
-    INITIAL_STATE,
-    validateCreateLab,
-    handleCreateLab
-  );
+  const {
+    handleSubmit,
+    handleChange,
+    handleFileChange,
+    handleUpload,
+    values,
+    errors,
+  } = useFormValidation(INITIAL_STATE, validateCreateLab, handleCreateLab);
 
   function handleCreateLab() {
+    console.log(values);
     if (!user) {
       props.history.push("/login");
     } else {
@@ -42,16 +44,13 @@ function AddLab1(props) {
         instructor,
         title,
         introduction,
-        step1,
         step2,
-        step3,
         step4,
-        step5,
         step6,
-        step7,
         step8,
         discussion,
         conclusion,
+        code,
       } = values;
       const newLab = {
         name,
@@ -60,16 +59,13 @@ function AddLab1(props) {
         instructor,
         title,
         introduction,
-        step1,
         step2,
-        step3,
         step4,
-        step5,
         step6,
-        step7,
         step8,
         discussion,
         conclusion,
+        code,
         familiarity: "",
         operation: "",
         user: {
@@ -86,8 +82,18 @@ function AddLab1(props) {
         po4bF: "",
         created: Date.now(),
       };
-      firebase.db.collection("labs").add(newLab);
-      props.history.push("/");
+      console.log("before add");
+      firebase.db
+        .collection("labs")
+        .add(newLab)
+        .then(function (docRef) {
+          console.log("Document written with ID: ", docRef.id);
+
+          props.history.push("/");
+        })
+        .catch(function (error) {
+          console.error("Error adding document: ", error);
+        });
     }
   }
 
@@ -171,12 +177,13 @@ function AddLab1(props) {
           1. Copy and Paste the LST file (only the asm code portion with the
           date and time) to Word Doc and print.
         </p>
-        <TextareaAutosize
+        {/* <TextareaAutosize
           onChange={handleChange}
           value={values.step1}
           name="step1"
           placeholder="Code..."
-        />
+        />*/}
+
         <p>
           2. Perform the addition operation using another set of 8-bit integers.
           Use debugging mode to perform program tracing and use WATCH function
@@ -202,12 +209,7 @@ function AddLab1(props) {
           3. Copy and Paste the LST file (only the asm code portion with the
           date and time) to Word Doc and print.
         </p>
-        <TextareaAutosize
-          onChange={handleChange}
-          value={values.step3}
-          name="step3"
-          placeholder="Code..."
-        />
+
         <p>
           4. Perform the subtraction operation using another set of 8-bit
           integers. Use debugging mode to perform program tracing and use WATCH
@@ -233,12 +235,7 @@ function AddLab1(props) {
           5. Copy and Paste the LST file (only the asm code portion with the
           date and time) to Word Doc and print.
         </p>
-        <TextareaAutosize
-          onChange={handleChange}
-          value={values.step5}
-          name="step5"
-          placeholder="Code..."
-        />
+
         <p>
           6. Use debugging mode to perform program tracing and use WATCH
           function to write your observations regarding the logic operation,
@@ -263,12 +260,7 @@ function AddLab1(props) {
           7. Copy and Paste the LST file (only the asm code portion with the
           date and time) to Word Doc and print.
         </p>
-        <TextareaAutosize
-          onChange={handleChange}
-          value={values.step7}
-          name="step7"
-          placeholder="Code..."
-        />
+
         <p>
           8. Use debugging mode to perform program tracing and use WATCH
           function to write your observations regarding the logic operation,
@@ -410,6 +402,31 @@ function AddLab1(props) {
           placeholder="Conclusion..."
         />
 
+        <div className="section-header mt4">Code</div>
+        <div className="section-description mb2">
+          * Please upload here a single PDF file that contains the code for all
+          tasks above.
+        </div>
+        <input
+          type="file"
+          name="file"
+          accept="application/pdf"
+          onChange={handleFileChange}
+        />
+        {errors.file && <p className="error-text">{errors.file}</p>}
+        {
+          <button disabled={!values.file} onClick={handleUpload}>
+            Upload Code
+          </button>
+        }
+        {errors.code && <p className="error-text">{errors.code}</p>}
+        {/* values.code && (
+          <a href={values.code} className="tm3 pa3">
+            View code
+          </a>
+        )*/}
+
+        {/* Comments and marks */}
         <div className="b mt4">Comments</div>
         <TextareaAutosize
           onChange={handleChange}
