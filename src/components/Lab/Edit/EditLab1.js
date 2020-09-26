@@ -1,18 +1,20 @@
 import React from "react";
 import useFormValidation from "../../Auth/useFormValidation";
-import validateCreateLab from "../../Auth/validateCreateLab";
+import validateUpdateLab from "../../Auth/validateUpdateLab";
 import FirebaseContext from "../../../firebase/context";
 import TextareaAutosize from "react-autosize-textarea";
 
 function EditLab1(props) {
   const { firebase, user } = React.useContext(FirebaseContext);
-  const lab = props.location.state.lab;
-
-  const { handleSubmit, handleChange, values, errors } = useFormValidation(
-    lab,
-    validateCreateLab,
-    handleEditLab
-  );
+  const lab = { ...props.location.state.lab, file: null, progress: 0 };
+  const {
+    handleSubmit,
+    handleChange,
+    handleFileChange,
+    handleUpload,
+    values,
+    errors,
+  } = useFormValidation(lab, validateUpdateLab, handleEditLab);
 
   function handleEditLab() {
     if (!user) {
@@ -28,16 +30,13 @@ function EditLab1(props) {
             instructor,
             title,
             introduction,
-            step1,
             step2,
-            step3,
             step4,
-            step5,
             step6,
-            step7,
             step8,
             discussion,
             conclusion,
+            code,
             familiarity,
             operation,
             comments,
@@ -55,16 +54,13 @@ function EditLab1(props) {
             instructor,
             title,
             introduction,
-            step1,
             step2,
-            step3,
             step4,
-            step5,
             step6,
-            step7,
             step8,
             discussion,
             conclusion,
+            code,
             familiarity,
             operation,
             comments,
@@ -76,8 +72,15 @@ function EditLab1(props) {
             po4bF,
             ...doc.data.lab,
           };
-          labRef.update(newLab);
-          props.history.push("/");
+          labRef
+            .update(newLab)
+            .then(function () {
+              console.log("Document updated");
+              props.history.push("/");
+            })
+            .catch(function (error) {
+              console.error("Error updating document: ", error);
+            });
         }
       });
     }
@@ -145,6 +148,7 @@ function EditLab1(props) {
           />
           {errors.title && <p className="error-text">{errors.title}</p>}
         </div>
+
         <div className="section-header mt4">Introduction</div>
         <div className="section-description mb2">
           *Student should be able to summarize in brief the experiments that
@@ -163,12 +167,13 @@ function EditLab1(props) {
           1. Copy and Paste the LST file (only the asm code portion with the
           date and time) to Word Doc and print.
         </p>
-        <TextareaAutosize
+        {/* <TextareaAutosize
           onChange={handleChange}
           value={values.step1}
           name="step1"
           placeholder="Code..."
-        />
+        /> */}
+
         <p>
           2. Perform the addition operation using another set of 8-bit integers.
           Use debugging mode to perform program tracing and use WATCH function
@@ -194,12 +199,7 @@ function EditLab1(props) {
           3. Copy and Paste the LST file (only the asm code portion with the
           date and time) to Word Doc and print.
         </p>
-        <TextareaAutosize
-          onChange={handleChange}
-          value={values.step3}
-          name="step3"
-          placeholder="Code..."
-        />
+
         <p>
           4. Perform the subtraction operation using another set of 8-bit
           integers. Use debugging mode to perform program tracing and use WATCH
@@ -225,12 +225,7 @@ function EditLab1(props) {
           5. Copy and Paste the LST file (only the asm code portion with the
           date and time) to Word Doc and print.
         </p>
-        <TextareaAutosize
-          onChange={handleChange}
-          value={values.step5}
-          name="step5"
-          placeholder="Code..."
-        />
+
         <p>
           6. Use debugging mode to perform program tracing and use WATCH
           function to write your observations regarding the logic operation,
@@ -255,12 +250,7 @@ function EditLab1(props) {
           7. Copy and Paste the LST file (only the asm code portion with the
           date and time) to Word Doc and print.
         </p>
-        <TextareaAutosize
-          onChange={handleChange}
-          value={values.step7}
-          name="step7"
-          placeholder="Code..."
-        />
+
         <p>
           8. Use debugging mode to perform program tracing and use WATCH
           function to write your observations regarding the logic operation,
@@ -288,13 +278,7 @@ function EditLab1(props) {
           placeholder="Procedure, Results and Analysis..."
         />
 
-        <div
-          className="ba mt3 ph3 pt2"
-          style={{
-            pointerEvents:
-              user && user.email === "admin@gmail.com" ? "auto" : "none",
-          }}
-        >
+        <div className="ba mt3 ph3 pt2">
           <p>
             Verification of Q8 by Instructor. Rubrics evaluation of PO5a:
             Familiarity of tool(s)
@@ -311,6 +295,7 @@ function EditLab1(props) {
                 value="unfamiliar"
                 checked={values.familiarity === "unfamiliar"}
                 onChange={handleChange}
+                disabled={!(user && user.email === "admin@gmail.com")}
               />
               Unfamiliar
             </label>
@@ -321,6 +306,7 @@ function EditLab1(props) {
                 value="acceptable"
                 checked={values.familiarity === "acceptable"}
                 onChange={handleChange}
+                disabled={!(user && user.email === "admin@gmail.com")}
               />
               Acceptable knowledge
             </label>
@@ -331,6 +317,7 @@ function EditLab1(props) {
                 value="excellent"
                 checked={values.familiarity === "excellent"}
                 onChange={handleChange}
+                disabled={!(user && user.email === "admin@gmail.com")}
               />
               Excellent knowledge
             </label>
@@ -350,6 +337,7 @@ function EditLab1(props) {
                 value="need"
                 checked={values.operation === "need"}
                 onChange={handleChange}
+                disabled={!(user && user.email === "admin@gmail.com")}
               />
               Need assistance
             </label>
@@ -360,6 +348,7 @@ function EditLab1(props) {
                 value="fairly"
                 checked={values.operation === "fairly"}
                 onChange={handleChange}
+                disabled={!(user && user.email === "admin@gmail.com")}
               />
               Fairly Independent
             </label>
@@ -370,6 +359,7 @@ function EditLab1(props) {
                 value="fully"
                 checked={values.operation === "fully"}
                 onChange={handleChange}
+                disabled={!(user && user.email === "admin@gmail.com")}
               />
               Fully Independent
             </label>
@@ -402,6 +392,35 @@ function EditLab1(props) {
           placeholder="Conclusion..."
         />
 
+        <div className="section-header mt4">Code</div>
+        <div className="section-description mb2">
+          * Please upload here a single PDF file that contains the code for all
+          tasks above.
+        </div>
+        <div className="flex flex-row">
+          <input
+            type="file"
+            name="file"
+            accept="application/pdf"
+            onChange={handleFileChange}
+          />
+          <progress className="pv3 w-100" value={values.progress} max="100" />
+        </div>
+        {errors.file && <p className="error-text">{errors.file}</p>}
+
+        {
+          <button disabled={!values.file} onClick={handleUpload}>
+            Upload Code
+          </button>
+        }
+        {errors.code && <p className="error-text">{errors.code}</p>}
+        {values.code && (
+          <a href={values.code} className="link pa1">
+            View code
+          </a>
+        )}
+
+        {/* Comments and marks */}
         <div className="b mt4">Comments</div>
         <TextareaAutosize
           onChange={handleChange}

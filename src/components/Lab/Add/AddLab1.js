@@ -157,6 +157,7 @@ function AddLab1(props) {
           />
           {errors.title && <p className="error-text">{errors.title}</p>}
         </div>
+
         <div className="section-header mt4">Introduction</div>
         <div className="section-description mb2">
           *Student should be able to summarize in brief the experiments that
@@ -180,7 +181,7 @@ function AddLab1(props) {
           value={values.step1}
           name="step1"
           placeholder="Code..."
-        />*/}
+        /> */}
 
         <p>
           2. Perform the addition operation using another set of 8-bit integers.
