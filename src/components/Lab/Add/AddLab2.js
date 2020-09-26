@@ -77,12 +77,12 @@ function AddLab2(props) {
           email: user.email,
         },
         comments: "",
-        po4aA: null,
-        po4aB: null,
-        po4aC: null,
-        po4bD: null,
-        po4bE: null,
-        po4bF: null,
+        po4aA: "",
+        po4aB: "",
+        po4aC: "",
+        po4bD: "",
+        po4bE: "",
+        po4bF: "",
         created: Date.now(),
       };
       firebase.db

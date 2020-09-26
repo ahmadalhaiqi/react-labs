@@ -495,6 +495,7 @@ function EditLab1(props) {
             disabled={!(user && user.email === "admin@gmail.com")}
           />
         </div>
+
         <button className="button pointer ma3 w-100 center" type="submit">
           Submit
         </button>
