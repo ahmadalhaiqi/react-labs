@@ -404,7 +404,7 @@ function AddLab1(props) {
         <div className="section-header mt4">Code</div>
         <div className="section-description mb2">
           * Please upload here a single PDF file that contains the code for all
-          tasks above.
+          tasks above in addition to any other required items or screenshots.
         </div>
         <div className="flex flex-row">
           <input

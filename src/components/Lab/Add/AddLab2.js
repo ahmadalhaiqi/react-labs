@@ -11,26 +11,28 @@ const INITIAL_STATE = {
   instructor: "Ahmed Mubarak",
   title: "Elementary Input Output Programming",
   introduction: "",
-  step1: "",
   step2: "",
-  step3: "",
   step4: "",
   step5: "",
-  step6: "",
   step7: "",
-  step8: "",
   step9: "",
   discussion: "",
   conclusion: "",
+  code: "",
+  file: null,
+  progress: 0,
 };
 
 function AddLab2(props) {
   const { firebase, user } = React.useContext(FirebaseContext);
-  const { handleSubmit, handleChange, values, errors } = useFormValidation(
-    INITIAL_STATE,
-    validateCreateLab,
-    handleCreateLab
-  );
+  const {
+    handleSubmit,
+    handleChange,
+    handleFileChange,
+    handleUpload,
+    values,
+    errors,
+  } = useFormValidation(INITIAL_STATE, validateCreateLab, handleCreateLab);
 
   function handleCreateLab() {
     if (!user) {
@@ -43,36 +45,30 @@ function AddLab2(props) {
         instructor,
         title,
         introduction,
-        step1,
         step2,
-        step3,
         step4,
         step5,
-        step6,
         step7,
-        step8,
         step9,
         discussion,
         conclusion,
+        code,
       } = values;
-      const newLab2 = {
+      const newLab = {
         name,
         semester,
         section,
         instructor,
         title,
         introduction,
-        step1,
         step2,
-        step3,
         step4,
         step5,
-        step6,
         step7,
-        step8,
         step9,
         discussion,
         conclusion,
+        code,
         familiarity: "",
         operation: "",
         user: {
@@ -89,8 +85,16 @@ function AddLab2(props) {
         po4bF: null,
         created: Date.now(),
       };
-      firebase.db.collection("labs").add(newLab2);
-      props.history.push("/");
+      firebase.db
+        .collection("labs")
+        .add(newLab)
+        .then(function (docRef) {
+          console.log("Document written with ID: ", docRef.id);
+          props.history.push("/");
+        })
+        .catch(function (error) {
+          console.error("Error adding document: ", error);
+        });
     }
   }
 
@@ -156,6 +160,7 @@ function AddLab2(props) {
           />
           {errors.title && <p className="error-text">{errors.title}</p>}
         </div>
+
         <div className="section-header mt4">Introduction</div>
         <div className="section-description mb2">
           *Student should be able to summarize in brief the experiments that
@@ -174,12 +179,13 @@ function AddLab2(props) {
           1. Copy and Paste the LST file (only the asm code portion with the
           date and time) to Word Doc and print.
         </p>
-        <TextareaAutosize
+        {/* <TextareaAutosize
           onChange={handleChange}
           value={values.step1}
           name="step1"
           placeholder="Code..."
-        />
+        /> */}
+
         <p>
           2. Explain the procedures taken to achieve your task and show
           calculation steps the delay subroutine. Demonstrate the working
@@ -204,12 +210,7 @@ function AddLab2(props) {
           3. Copy and Paste the LST file (only the asm code portion with the
           date and time) to Word Doc and print.
         </p>
-        <TextareaAutosize
-          onChange={handleChange}
-          value={values.step3}
-          name="step3"
-          placeholder="Code..."
-        />
+
         <p>
           4. Explain the procedures taken to achieve your task. Demonstrate the
           working program on the PIC Training Kit hardware module and write down
@@ -228,20 +229,20 @@ function AddLab2(props) {
           placeholder="Procedure, Results and Analysis..."
         />
 
-        <p>5. Draw the flowchart of the program.</p>
-        <button>Upload</button>
+        <div className="section-header mt4">
+          5. Draw the flowchart of the program.
+        </div>
+        <div className="section-description mb2">
+          * Please combine the flowchart with the code and upload them together
+          below (under the code section) as a single PDF file.
+        </div>
 
         <div className="section-header mt4">Task 3</div>
         <p>
           6. Copy and Paste the LST file (only the asm code portion with the
           date and time) to Word Doc and print.
         </p>
-        <TextareaAutosize
-          onChange={handleChange}
-          value={values.step6}
-          name="step6"
-          placeholder="Code..."
-        />
+
         <p>
           7. Explain the procedures taken to achieve your task. Demonstrate the
           working program on the PIC Training Kit hardware module and write down
@@ -265,12 +266,7 @@ function AddLab2(props) {
           8. Copy and Paste the LST file (only the asm code portion with the
           date and time) to Word Doc and print.
         </p>
-        <TextareaAutosize
-          onChange={handleChange}
-          value={values.step8}
-          name="step8"
-          placeholder="Code..."
-        />
+
         <p>
           9. Explain the procedures taken to achieve your task. Demonstrate the
           working program on the PIC Training Kit hardware module and write down
@@ -289,13 +285,7 @@ function AddLab2(props) {
           placeholder="Procedure, Results and Analysis..."
         />
 
-        <div
-          className="ba mt3 ph3 pt2"
-          style={{
-            pointerEvents:
-              user && user.email === "admin@gmail.com" ? "auto" : "none",
-          }}
-        >
+        <div className="ba mt3 ph3 pt2">
           <p>
             Verification of Q8 by Instructor. Rubrics evaluation of PO5a:
             Familiarity of tool(s)
@@ -312,6 +302,7 @@ function AddLab2(props) {
                 value="unfamiliar"
                 checked={values.familiarity === "unfamiliar"}
                 onChange={handleChange}
+                disabled={!(user && user.email === "admin@gmail.com")}
               />
               Unfamiliar
             </label>
@@ -322,6 +313,7 @@ function AddLab2(props) {
                 value="acceptable"
                 checked={values.familiarity === "acceptable"}
                 onChange={handleChange}
+                disabled={!(user && user.email === "admin@gmail.com")}
               />
               Acceptable knowledge
             </label>
@@ -332,6 +324,7 @@ function AddLab2(props) {
                 value="excellent"
                 checked={values.familiarity === "excellent"}
                 onChange={handleChange}
+                disabled={!(user && user.email === "admin@gmail.com")}
               />
               Excellent knowledge
             </label>
@@ -351,6 +344,7 @@ function AddLab2(props) {
                 value="need"
                 checked={values.operation === "need"}
                 onChange={handleChange}
+                disabled={!(user && user.email === "admin@gmail.com")}
               />
               Need assistance
             </label>
@@ -361,6 +355,7 @@ function AddLab2(props) {
                 value="fairly"
                 checked={values.operation === "fairly"}
                 onChange={handleChange}
+                disabled={!(user && user.email === "admin@gmail.com")}
               />
               Fairly Independent
             </label>
@@ -371,6 +366,7 @@ function AddLab2(props) {
                 value="fully"
                 checked={values.operation === "fully"}
                 onChange={handleChange}
+                disabled={!(user && user.email === "admin@gmail.com")}
               />
               Fully Independent
             </label>
@@ -403,6 +399,30 @@ function AddLab2(props) {
           placeholder="Conclusion..."
         />
 
+        <div className="section-header mt4">Code </div>
+        <div className="section-description mb2">
+          * Please upload here a single PDF file that contains the code for all
+          tasks above in addition to any other required items or screenshots.
+        </div>
+        <div className="flex flex-row">
+          <input
+            type="file"
+            name="file"
+            accept="application/pdf"
+            onChange={handleFileChange}
+          />
+          <progress className="pv3 w-100" value={values.progress} max="100" />
+        </div>
+        {errors.file && <p className="error-text">{errors.file}</p>}
+
+        {
+          <button disabled={!values.file} onClick={handleUpload}>
+            Upload Code
+          </button>
+        }
+        {errors.code && <p className="error-text">{errors.code}</p>}
+
+        {/* Comments and marks */}
         <div className="b mt4">Comments</div>
         <TextareaAutosize
           onChange={handleChange}
