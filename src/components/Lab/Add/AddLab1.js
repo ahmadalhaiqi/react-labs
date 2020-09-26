@@ -17,8 +17,9 @@ const INITIAL_STATE = {
   step8: "",
   discussion: "",
   conclusion: "",
-  file: null,
   code: "",
+  file: null,
+  progress: 0,
 };
 
 function AddLab1(props) {
@@ -33,7 +34,6 @@ function AddLab1(props) {
   } = useFormValidation(INITIAL_STATE, validateCreateLab, handleCreateLab);
 
   function handleCreateLab() {
-    console.log(values);
     if (!user) {
       props.history.push("/login");
     } else {
@@ -82,13 +82,11 @@ function AddLab1(props) {
         po4bF: "",
         created: Date.now(),
       };
-      console.log("before add");
       firebase.db
         .collection("labs")
         .add(newLab)
         .then(function (docRef) {
           console.log("Document written with ID: ", docRef.id);
-
           props.history.push("/");
         })
         .catch(function (error) {
@@ -407,13 +405,17 @@ function AddLab1(props) {
           * Please upload here a single PDF file that contains the code for all
           tasks above.
         </div>
-        <input
-          type="file"
-          name="file"
-          accept="application/pdf"
-          onChange={handleFileChange}
-        />
+        <div className="flex flex-row">
+          <input
+            type="file"
+            name="file"
+            accept="application/pdf"
+            onChange={handleFileChange}
+          />
+          <progress className="pv3 w-100" value={values.progress} max="100" />
+        </div>
         {errors.file && <p className="error-text">{errors.file}</p>}
+
         {
           <button disabled={!values.file} onClick={handleUpload}>
             Upload Code

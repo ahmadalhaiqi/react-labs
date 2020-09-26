@@ -10,7 +10,7 @@ const INITIAL_STATE = {
   password: "",
 };
 
-function Login(props) {
+function Login({ history }) {
   const {
     handleSubmit,
     handleBlur,
@@ -28,7 +28,7 @@ function Login(props) {
       login
         ? await firebase.login(email, password)
         : await firebase.register(group, email, password);
-      props.history.push("/");
+      history.push("/");
     } catch (err) {
       console.error("Authentication Error", err);
       setFirebaseError(err.message);

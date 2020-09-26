@@ -44,7 +44,15 @@ function useFormValidation(initialState, validate, authenticate) {
       .put(values.file);
     uploadTask.on(
       "state_changed",
-      console.log,
+      (snapshot) => {
+        const progressValue = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+        setValues((previousValues) => ({
+          ...previousValues,
+          progress: progressValue,
+        }));
+      },
       (err) => console.error("upload errer: ", err),
       () => {
         console.log("completed");
@@ -53,7 +61,6 @@ function useFormValidation(initialState, validate, authenticate) {
           .child(fileName)
           .getDownloadURL()
           .then((url) => {
-            console.log(url);
             setValues((previousValues) => ({
               ...previousValues,
               code: url,

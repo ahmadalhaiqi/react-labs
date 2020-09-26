@@ -2,6 +2,7 @@ import React from "react";
 import FirebaseContext from "../../firebase/context";
 import LabItem from "./LabItem";
 import labTitles from "./LabTitles";
+import Login from "../Auth/Login";
 
 function LabList(props) {
   const { user, firebase } = React.useContext(FirebaseContext);
@@ -9,26 +10,24 @@ function LabList(props) {
   const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
-    const unsubscribe = getLabs();
-    return () => unsubscribe();
+    if (user) {
+      const unsubscribe = getLabs();
+      return () => unsubscribe();
+    }
   }, [user]);
 
   function getLabs() {
-    if (!user) {
-      props.history.push("/login");
-    } else {
-      if (user.email === "admin@gmail.com")
-        firebase.db
-          .collection("labs")
-          .orderBy("created")
-          .onSnapshot(handleSnapshot);
-      else
-        firebase.db
-          .collection("labs")
-          .where("user.id", "==", user.uid)
-          .orderBy("created")
-          .onSnapshot(handleSnapshot);
-    }
+    if (user.email === "admin@gmail.com")
+      return firebase.db
+        .collection("labs")
+        .orderBy("created")
+        .onSnapshot(handleSnapshot);
+    else
+      return firebase.db
+        .collection("labs")
+        .where("user.id", "==", user.uid)
+        .orderBy("created")
+        .onSnapshot(handleSnapshot);
   }
 
   function handleSnapshot(snapshot) {
@@ -64,8 +63,10 @@ function LabList(props) {
         </div>
       </>
     )
-  ) : (
+  ) : user ? (
     <div> Loading... </div>
+  ) : (
+    <Login history={props.history} />
   );
 }
 

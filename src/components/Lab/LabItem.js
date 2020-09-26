@@ -4,7 +4,7 @@ import distanceInWordsToNow from "date-fns/distance_in_words_to_now";
 
 function LabItem({ lab, index }) {
   return index === 0 ? (
-    <div className="flex mt2 ph3">
+    <div className="flex mb2 pl3 lh-copy pv2 ba bl-0 bt-0 br-0 b--dotted b--black-30">
       <div className="ml1">
         <div>
           {lab.name}
@@ -15,11 +15,11 @@ function LabItem({ lab, index }) {
       </div>
     </div>
   ) : (
-    <div className="flex items-start mt2">
+    <div className="flex items-start mb2 lh-copy pv2 ba bl-0 bt-0 br-0 b--dotted b--black-30">
       <div className="flex items-center">
         <span className="gray">{index}.</span>
       </div>
-      <div className="ml2">
+      <div className="ml1">
         <div>
           {lab.name}
           <span className="link"> ({lab.title})</span>
