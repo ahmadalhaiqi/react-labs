@@ -9,40 +9,14 @@ function Header(props) {
     <div className="header">
       <div className="flex">
         <NavLink to="/" className="header-title">
-          EEEB371 Labs
+          <i
+            className="material-icons"
+            style={{ fontSize: "16px", fontWeight: "bold" }}
+          >
+            home
+          </i>
+          <span className="ml2">EEEB371 Labs</span>
         </NavLink>
-        {/* user && (
-          <>
-            <NavLink to="/add-lab1" className="header-link">
-              Add Lab 1
-            </NavLink>
-            <div className="divider">|</div>
-            <NavLink to="/add-lab2" className="header-link">
-              Add Lab 2
-            </NavLink>
-            <div className="divider">|</div>
-            <NavLink to="/add-lab3" className="header-link">
-              Add Lab 3
-            </NavLink>
-            <div className="divider">|</div>
-            <NavLink to="/add-lab4" className="header-link">
-              Add Lab 4
-            </NavLink>
-            <div className="divider">|</div>
-            <NavLink to="/add-lab5" className="header-link">
-              Add Lab 5
-            </NavLink>
-            <div className="divider">|</div>
-            <NavLink to="/add-lab6" className="header-link">
-              Add Lab 6
-            </NavLink>
-            <div className="divider">|</div>
-            <NavLink to="/add-lab7" className="header-link">
-              Add Lab 7
-            </NavLink>
-            <div className="divider">|</div>
-          </>
-        ) */}
       </div>
       <div className="flex">
         {user ? (

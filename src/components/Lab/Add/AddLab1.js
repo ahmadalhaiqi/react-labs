@@ -286,13 +286,7 @@ function AddLab1(props) {
           placeholder="Procedure, Results and Analysis..."
         />
 
-        <div
-          className="ba mt3 ph3 pt2"
-          style={{
-            pointerEvents:
-              user && user.email === "admin@gmail.com" ? "auto" : "none",
-          }}
-        >
+        <div className="ba mt3 ph3 pt2">
           <p>
             Verification of Q8 by Instructor. Rubrics evaluation of PO5a:
             Familiarity of tool(s)
@@ -309,6 +303,7 @@ function AddLab1(props) {
                 value="unfamiliar"
                 checked={values.familiarity === "unfamiliar"}
                 onChange={handleChange}
+                disabled={!(user && user.email === "admin@gmail.com")}
               />
               Unfamiliar
             </label>
@@ -319,6 +314,7 @@ function AddLab1(props) {
                 value="acceptable"
                 checked={values.familiarity === "acceptable"}
                 onChange={handleChange}
+                disabled={!(user && user.email === "admin@gmail.com")}
               />
               Acceptable knowledge
             </label>
@@ -329,6 +325,7 @@ function AddLab1(props) {
                 value="excellent"
                 checked={values.familiarity === "excellent"}
                 onChange={handleChange}
+                disabled={!(user && user.email === "admin@gmail.com")}
               />
               Excellent knowledge
             </label>
@@ -348,6 +345,7 @@ function AddLab1(props) {
                 value="need"
                 checked={values.operation === "need"}
                 onChange={handleChange}
+                disabled={!(user && user.email === "admin@gmail.com")}
               />
               Need assistance
             </label>
@@ -358,6 +356,7 @@ function AddLab1(props) {
                 value="fairly"
                 checked={values.operation === "fairly"}
                 onChange={handleChange}
+                disabled={!(user && user.email === "admin@gmail.com")}
               />
               Fairly Independent
             </label>
@@ -368,6 +367,7 @@ function AddLab1(props) {
                 value="fully"
                 checked={values.operation === "fully"}
                 onChange={handleChange}
+                disabled={!(user && user.email === "admin@gmail.com")}
               />
               Fully Independent
             </label>

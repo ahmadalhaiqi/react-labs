@@ -2,6 +2,8 @@ body {
   margin: 0;
   padding: 0;
   /* font-family: Verdana, Geneva, sans-serif; */
+  font-family: "Comfortaa", cursive;
+  font-size: 0.9em;
 }
 
 input {
@@ -33,12 +35,12 @@ input {
 }
 
 .button {
-  font-family: monospace;
+  /* font-family: monospace; */
   font-size: 10pt;
   color: black;
   background-color: buttonface;
   text-align: center;
-  padding: 2px 6px 3px;
+  padding: 3px 9px 3px;
   border-width: 2px;
   border-style: outset;
   border-color: buttonface;
@@ -61,16 +63,16 @@ input {
 .header {
   background-color: #6cbed3;
   white-space: nowrap;
-  padding: 0.25rem;
+  padding: 0.7rem;
   color: black;
   justify-content: space-between;
   display: flex;
 }
 
 .header-title {
-  font-weight: 700;
+  font-weight: bold;
+  font-size: 16px;
   margin-left: 0.25rem;
-  margin-right: 5px;
   color: black;
   text-decoration: none;
 }
