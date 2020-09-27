@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import CreateLink from "./Link/CreateLink";
 import AddLab1 from "./Lab/Add/AddLab1";
 import AddLab2 from "./Lab/Add/AddLab2";
 import AddLab3 from "./Lab/Add/AddLab3";
@@ -33,7 +32,6 @@ function App() {
           <div className="route-container">
             <Switch>
               <Route exact path="/" component={LabList} />
-              <Route path="/create" component={CreateLink} />
               <Route path="/add-lab1" component={AddLab1} />
               <Route path="/add-lab2" component={AddLab2} />
               <Route path="/add-lab3" component={AddLab3} />
