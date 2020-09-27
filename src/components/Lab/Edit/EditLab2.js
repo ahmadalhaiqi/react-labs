@@ -14,9 +14,9 @@ function EditLab2(props) {
     handleUpload,
     values,
     errors,
-  } = useFormValidation(lab, validateUpdateLab, handleCreateLab);
+  } = useFormValidation(lab, validateUpdateLab, handleEditLab);
 
-  function handleCreateLab() {
+  function handleEditLab() {
     if (!user) {
       props.history.push("/login");
     } else {
@@ -169,12 +169,6 @@ function EditLab2(props) {
           1. Copy and Paste the LST file (only the asm code portion with the
           date and time) to Word Doc and print.
         </p>
-        {/* <TextareaAutosize
-          onChange={handleChange}
-          value={values.step1}
-          name="step1"
-          placeholder="Code..."
-        /> */}
 
         <p>
           2. Explain the procedures taken to achieve your task and show
