@@ -9,7 +9,7 @@ const INITIAL_STATE = {
   semester: "S1Y2021",
   section: "",
   instructor: "Ahmed Mubarak",
-  title: "Data Manipulation",
+  title: "The Interrupt and Polling System",
   introduction: "",
   step2: "",
   q1: "",

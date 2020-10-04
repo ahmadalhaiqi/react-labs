@@ -179,12 +179,6 @@ function AddLab2(props) {
           1. Copy and Paste the LST file (only the asm code portion with the
           date and time) to Word Doc and print.
         </p>
-        {/* <TextareaAutosize
-          onChange={handleChange}
-          value={values.step1}
-          name="step1"
-          placeholder="Code..."
-        /> */}
 
         <p>
           2. Explain the procedures taken to achieve your task and show
