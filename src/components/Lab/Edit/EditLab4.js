@@ -271,7 +271,7 @@ function EditLab4(props) {
         </div>
         <TextareaAutosize
           onChange={handleChange}
-          value={values.step4}
+          value={values.step3}
           name="step3"
           placeholder="Procedure, Results and Analysis..."
         />
@@ -372,7 +372,7 @@ function EditLab4(props) {
         </div>
         <TextareaAutosize
           onChange={handleChange}
-          value={values.step7}
+          value={values.step5}
           name="step5"
           placeholder="Procedure, Results and Analysis..."
         />
