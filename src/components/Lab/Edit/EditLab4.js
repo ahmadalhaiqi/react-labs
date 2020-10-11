@@ -14,9 +14,9 @@ function EditLab4(props) {
     handleUpload,
     values,
     errors,
-  } = useFormValidation(lab, validateUpdateLab, handleCreateLab);
+  } = useFormValidation(lab, validateUpdateLab, handleEditLab);
 
-  function handleCreateLab() {
+  function handleEditLab() {
     if (!user) {
       props.history.push("/login");
     } else {
